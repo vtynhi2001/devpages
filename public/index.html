@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cloudflare Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 1rem;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 { 
+            color: #f6821f; /* Cloudflare Orange */
+            margin-bottom: 0.5rem;
+        }
+        p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        .status {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .api-btn {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #f6821f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .api-btn:hover {
+            background: #e5710e;
+        }
+        #api-response {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #edf2f7;
+            border-radius: 8px;
+            display: none;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Hello, Cloudflare!</h1>
+        <p>This site is deployed on Cloudflare Pages with Workers Functions support.</p>
+        
+        <div class="status">
+            <strong>Deployment Status:</strong> ✅ Live on the Edge
+        </div>
+
+        <button class="api-btn" onclick="callApi()">Test API Function</button>
+        <div id="api-response"></div>
+    </div>
+
+    <script>
+        async function callApi() {
+            const responseDiv = document.getElementById('api-response');
+            responseDiv.style.display = 'block';
+            responseDiv.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch('/api/hello');
+                const data = await response.json();
+                responseDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
